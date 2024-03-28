@@ -13,3 +13,8 @@ export function getState() {
 export function saveState(state) {
   localStorage.setItem(storeKey, JSON.stringify(state))
 }
+
+if (window.Cypress) {
+  window.getState = getState
+  window.saveState = saveState
+}
