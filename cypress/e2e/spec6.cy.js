@@ -4,6 +4,8 @@
 import 'cypress-data-session'
 
 function threeTodos(recompute = false) {
+  // clear the data session forcing it to call the `setup` method
+  // and use the UI to create the todos and grab the state
   if (recompute) {
     Cypress.clearDataSession('threeTodos')
   }
@@ -18,6 +20,8 @@ function threeTodos(recompute = false) {
       cy.get('.todos .item').should('have.length', 3)
       cy.window().invoke('getState')
     },
+    // if there is a state in memory, use it
+    // to set the application instantly
     recreate(state) {
       // it helps to clone the object
       // to prevent mutations from changing the value

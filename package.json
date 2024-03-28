@@ -13,7 +13,7 @@
   "type": "module",
   "devDependencies": {
     "cypress": "^13.7.1",
-    "cypress-data-session": "^2.8.1",
+    "cypress-data-session": "^2.8.2",
     "prettier": "^3.2.5",
     "serve": "^14.2.1"
   }
