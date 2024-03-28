@@ -32,4 +32,15 @@ describe('Todo app', () => {
     cy.contains('.item', 'write tests').contains('button', 'Delete').click()
     cy.get('.todos .item').should('have.length', 2)
   })
+
+  it('removes todos (with reload)', () => {
+    const todos = ['write code', 'write tests', 'deploy']
+
+    // cy.visit yields the "window" object, thus we can
+    // quickly invoke the "saveState" method
+    cy.visit('/').invoke('saveState', { todos }).reload()
+    cy.get('.todos .item').should('have.length', 3)
+    cy.contains('.item', 'write tests').contains('button', 'Delete').click()
+    cy.get('.todos .item').should('have.length', 2)
+  })
 })
