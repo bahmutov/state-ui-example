@@ -19,10 +19,11 @@ function addTodo(event) {
 
   // Otherwise, add todo and rerender the UI
   state.todos.push(form.todo.value)
-  app.innerHTML = getHTML()
 
   // Clear the form field
   form.todo.value = ''
+
+  app.innerHTML = getHTML(state)
 
   // Save the list
   saveState(state)
@@ -39,7 +40,7 @@ function removeTodo(event) {
 
   // Otherwise, remove the todo and rerender the UI
   state.todos.splice(index, 1)
-  app.innerHTML = getHTML()
+  app.innerHTML = getHTML(state)
 
   // Save the list
   saveState(state)
@@ -48,7 +49,7 @@ function removeTodo(event) {
 /**
  * Create the HTML based on the app state
  */
-function getHTML() {
+function getHTML(state) {
   // If there are no todos, show a message
   if (!state.todos.length) {
     return `<p><em>You don't have any todos yet.</em></p>`
@@ -56,10 +57,10 @@ function getHTML() {
 
   // Otherwise, render the todo items
   return `
-		<ul>
+		<ul class="todos">
 			${state.todos
         .map(function (todo, index) {
-          return `<li>${todo} <button data-delete="${index}">Delete</button></li>`
+          return `<li class="item">${todo} <button data-delete="${index}">Delete</button></li>`
         })
         .join('')}
 		</ul>`
@@ -72,4 +73,4 @@ form.addEventListener('submit', addTodo)
 document.addEventListener('click', removeTodo)
 
 // Render the UI
-app.innerHTML = getHTML()
+app.innerHTML = getHTML(state)
