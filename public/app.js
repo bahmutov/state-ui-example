@@ -1,20 +1,8 @@
+import { getState, saveState } from './state.js'
+
 // DOM elements
 const app = document.querySelector('#app')
 const form = document.querySelector('#add-todo')
-
-// application data
-const storeKey = 'todos-state-based-1'
-
-function getState() {
-  const defaultState = {
-    todos: [],
-  }
-  return JSON.parse(localStorage.getItem(storeKey)) || defaultState
-}
-
-function saveState(state) {
-  localStorage.setItem(storeKey, JSON.stringify(state))
-}
 
 const state = getState()
 
