@@ -2,8 +2,21 @@
 const app = document.querySelector('#app')
 const form = document.querySelector('#add-todo')
 
-// Todo data
-let todos = JSON.parse(localStorage.getItem('todos-state-based')) || []
+// application data
+const storeKey = 'todos-state-based-1'
+
+function getState() {
+  const defaultState = {
+    todos: [],
+  }
+  return JSON.parse(localStorage.getItem(storeKey)) || defaultState
+}
+
+function saveState(state) {
+  localStorage.setItem(storeKey, JSON.stringify(state))
+}
+
+const state = getState()
 
 /**
  * Add todo to the list
@@ -17,14 +30,14 @@ function addTodo(event) {
   if (!form.todo.value) return
 
   // Otherwise, add todo and rerender the UI
-  todos.push(form.todo.value)
+  state.todos.push(form.todo.value)
   app.innerHTML = getHTML()
 
   // Clear the form field
   form.todo.value = ''
 
   // Save the list
-  localStorage.setItem('todos-state-based', JSON.stringify(todos))
+  saveState(state)
 }
 
 /**
@@ -37,11 +50,11 @@ function removeTodo(event) {
   if (!index) return
 
   // Otherwise, remove the todo and rerender the UI
-  todos.splice(index, 1)
+  state.todos.splice(index, 1)
   app.innerHTML = getHTML()
 
   // Save the list
-  localStorage.setItem('todos-state-based', JSON.stringify(todos))
+  saveState(state)
 }
 
 /**
@@ -49,14 +62,14 @@ function removeTodo(event) {
  */
 function getHTML() {
   // If there are no todos, show a message
-  if (!todos.length) {
+  if (!state.todos.length) {
     return `<p><em>You don't have any todos yet.</em></p>`
   }
 
   // Otherwise, render the todo items
   return `
 		<ul>
-			${todos
+			${state.todos
         .map(function (todo, index) {
           return `<li>${todo} <button data-delete="${index}">Delete</button></li>`
         })
