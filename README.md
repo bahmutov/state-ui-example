@@ -2,6 +2,8 @@
 
 > A Todo app where everything is determined by the state object
 
+📝 Read the blog post [Cypress Tests For Apps That Use Central State]()
+
 ## Small print
 
 Author: Gleb Bahmutov &lt;gleb.bahmutov@gmail.com&gt; &copy; 2024

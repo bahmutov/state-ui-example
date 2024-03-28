@@ -4,7 +4,7 @@ import { getState, saveState } from './state.js'
 const app = document.querySelector('#app')
 const form = document.querySelector('#add-todo')
 
-const state = getState()
+let state = getState()
 
 /**
  * Add todo to the list
@@ -23,7 +23,7 @@ function addTodo(event) {
   // Clear the form field
   form.todo.value = ''
 
-  app.innerHTML = getHTML(state)
+  render(state)
 
   // Save the list
   saveState(state)
@@ -40,7 +40,7 @@ function removeTodo(event) {
 
   // Otherwise, remove the todo and rerender the UI
   state.todos.splice(index, 1)
-  app.innerHTML = getHTML(state)
+  render(state)
 
   // Save the list
   saveState(state)
@@ -66,11 +66,19 @@ function getHTML(state) {
 		</ul>`
 }
 
+function render(s) {
+  state = s
+  // Render the UI
+  app.innerHTML = getHTML(state)
+}
+if (window.Cypress) {
+  window.render = render
+}
+
 // Add todos when form is submitted
 form.addEventListener('submit', addTodo)
 
 // Remove todos when delete button is clicked
 document.addEventListener('click', removeTodo)
 
-// Render the UI
-app.innerHTML = getHTML(state)
+render(state)
