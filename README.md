@@ -1,4 +1,4 @@
-# state-ui-example
+# state-ui-example [![ci](https://github.com/bahmutov/state-ui-example/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/bahmutov/state-ui-example/actions/workflows/ci.yml)
 
 > A Todo app where everything is determined by the state object
 
